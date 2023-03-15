@@ -1,13 +1,10 @@
-# Sample Hardhat Project
+# 项目描述
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+实现以下内容：
 
-Try running some of the following tasks:
+1. ✅ 编写 Counter.sol 合约，实现仅有 owner 能调用 count() 函数的功能；
+2. ✅ 添加 Counter.test.js 测试，测试只有 owner 能调用 count() 函数而 addr1 无法调用 count() 函数的场景；
+3. ✅ 部署 Counter.sol 合约；
+4. ⭕ 验证 Counter.sol 合约；
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
-```
+注意，在合约验证上，目前只能实现 Etherscan 在线验证，使用代码验证会出现网络连接问题。
