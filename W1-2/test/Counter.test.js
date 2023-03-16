@@ -7,7 +7,7 @@ describe("Counter", function () {
     let owner;
     let addr1;
 
-    this.beforeEach(async function () {
+    beforeEach(async function () {
         [owner, addr1] = await ethers.getSigners();
         Counter = await ethers.getContractFactory("Counter");
         counter = await Counter.deploy();
