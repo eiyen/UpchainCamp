@@ -21,3 +21,7 @@
 2. 前端交互：通过 Metamask 钱包的本地网络+账户导入，做到直接向合约发起转账，效果如下：
 
     ![旧钱包的试错经历](./assets/tx_with_Metamask_account_5.png)![新钱包一次成功](./assets/tx-with-Metamask.png)
+
+## 资料
+
+所有在开发中遇到的问题，都与 GPT-4 进行了交流，详见 [GPT-4: Bank.sol 问答记录](./assets/Band.sol_%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91.md)。
