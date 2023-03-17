@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-contract Bank {
+contract TestBank {
     address payable private owner;
     mapping(address => uint256) private currentBalances;
     mapping(address => uint256) private totalBalances;
@@ -17,24 +17,16 @@ contract Bank {
         _;
     }
 
+    function deposit() public payable {
+        if (totalBalances[msg.sender] == 0) {
+            users.push(msg.sender);
+        }
+        currentBalances[msg.sender] += msg.value;
+        totalBalances[msg.sender] += msg.value;
+    }
+
     receive() external payable {
-        if (totalBalances[msg.sender] == 0) {
-            users.push(msg.sender);
-        }
-        currentBalances[msg.sender] += msg.value;
-        totalBalances[msg.sender] += msg.value;
-    }
-
-    fallback() external payable {
-        _receive();
-    }
-
-    function _receive() internal {
-        if (totalBalances[msg.sender] == 0) {
-            users.push(msg.sender);
-        }
-        currentBalances[msg.sender] += msg.value;
-        totalBalances[msg.sender] += msg.value;
+        deposit();
     }
 
     function getMyCurrentBalance() public view returns (uint256) {
