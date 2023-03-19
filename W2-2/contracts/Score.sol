@@ -3,18 +3,25 @@
 pragma solidity ^0.8.0;
 
 import "./IScore.sol";
+import "./Teacher.sol";
 
 contract Score is IScore {
 
     address public owner;
     mapping(address => uint) private scores;
+    bytes32 private constant TEACHER_CONTRACT_SALT = keccak256("SCORE_CONTRACT_SALT");
+
+    error OnlyOwner();
+    error InvalidScore();
+    error InvalidAddress();
 
     constructor() {
-        owner = msg.sender;
+        address teacherContractAddress = deployTeacherUsingCreate2();
+        owner = teacherContractAddress;
     }
 
     modifier onlyOwner() {
-        require(msg.sender == owner, "Only the owner can call this function.");
+        if (msg.sender != owner) revert OnlyOwner();
         _;
     }
 
@@ -23,11 +30,21 @@ contract Score is IScore {
     }
 
     function setScore(address student, uint256 newScore) public override onlyOwner {
-        require(newScore >= 0 && newScore <= 100, "Score must be between 0 and 100");
+        if (newScore < 0 || newScore > 100) revert InvalidScore();
         scores[student] = newScore;
+        emit ScoreSet(student, newScore);
     }
 
-    function transferOwnership(address newOwner) public onlyOwner {
-        owner = newOwner;
+    function deployTeacherUsingCreate2() internal returns (address) {
+        bytes memory bytecode = type(Teacher).creationCode;
+        bytes32 salt = TEACHER_CONTRACT_SALT;
+
+        address teacherContractAddress;
+        assembly {
+            teacherContractAddress := create2(0, add(bytecode, 32), mload(bytecode), salt)
+        }
+
+        if (teacherContractAddress == address(0)) revert InvalidAddress();
+        return teacherContractAddress;
     }
 }
