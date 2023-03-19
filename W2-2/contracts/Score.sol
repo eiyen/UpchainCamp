@@ -9,8 +9,8 @@ contract Score is IScore {
     address public owner;
     mapping(address => uint) private scores;
 
-    constructor() {
-        owner = msg.sender;
+    constructor(address teacherAddress) {
+        owner = teacherAddress;
     }
 
     modifier onlyOwner() {
@@ -25,9 +25,5 @@ contract Score is IScore {
     function setScore(address student, uint256 newScore) public override onlyOwner {
         require(newScore >= 0 && newScore <= 100, "Score must be between 0 and 100");
         scores[student] = newScore;
-    }
-
-    function transferOwnership(address newOwner) public onlyOwner {
-        owner = newOwner;
     }
 }
