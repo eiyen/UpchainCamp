@@ -10,6 +10,8 @@ contract Teacher {
     IScore private scoreContract;
     bytes32 private constant SCORE_CONTRACT_SALT = keccak256("SCORE_CONTRACT_SALT");
 
+    error InvalidAddress();
+
     constructor() {
         address scoreContractAddress = deployScoreUsingCreate2();
         scoreContract = IScore(scoreContractAddress);
@@ -32,7 +34,7 @@ contract Teacher {
             scoreContractAddress := create2(0, add(bytecode, 32), mload(bytecode), salt)
         }
 
-        require(scoreContractAddress != address(0), "Failed to deploy Score contract using create2");
+        if (scoreContractAddress == address(0)) revert InvalidAddress();
         return scoreContractAddress;
     }
 }
