@@ -28,5 +28,6 @@ contract Score is IScore {
     function setScore(address student, uint256 newScore) public override onlyOwner {
         if (newScore < 0 || newScore > 100) revert InvalidScore();
         scores[student] = newScore;
+        emit ScoreSet(student, newScore);
     }
 }
