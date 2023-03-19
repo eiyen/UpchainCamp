@@ -9,12 +9,16 @@ contract Score is IScore {
     address public owner;
     mapping(address => uint) private scores;
 
+    error OnlyOwner();
+    error InvalidScore();
+
     constructor() {
         owner = msg.sender;
     }
 
     modifier onlyOwner() {
-        require(msg.sender == owner, "Only the owner can call this function.");
+        // require(msg.sender == owner, "Only the owner can call this function.");
+        if (msg.sender != owner) revert OnlyOwner();
         _;
     }
 
@@ -23,8 +27,9 @@ contract Score is IScore {
     }
 
     function setScore(address student, uint256 newScore) public override onlyOwner {
-        require(newScore >= 0 && newScore <= 100, "Score must be between 0 and 100");
+        if (newScore < 0 || newScore > 100) revert InvalidScore();
         scores[student] = newScore;
+        emit SetScore(student, newScore);
     }
 
     function transferOwnership(address newOwner) public onlyOwner {
