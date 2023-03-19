@@ -1,27 +1,26 @@
-require("@nomiclabs/hardhat-ethers")
+const hre = require("hardhat");
 
 async function main() {
-    const [deployer] = await ethers.getSigners();
-    console.log("Deploying contracts with account: ", deployer.address);
+  const [deployer] = await hre.ethers.getSigners();
+  console.log("Deploying contracts with account:", deployer.address);
 
-    const Score = await ethers.getContractFactory("Score");
-    const score = await Score.deploy();
-    await score.deployed();
-    console.log("Score constract deployed at: ", score.address);
+  // Deploy Score contract
+  const Score = await hre.ethers.getContractFactory("Score");
+  const score = await Score.deploy({ gasLimit: 7000000 });
+  await score.deployed();
+  console.log("Score contract deployed at:", score.address);
 
-    const Teacher = await ethers.getContractFactory("Teacher");
-    const teacher = await Teacher.deploy(score.address);
-    await teacher.deployed();
-    console.log("Teacher contract deployed at: ", teacher.address);
+  // Deploy Teacher contract using deployTeacherUsingCreate2
+  const teacherAddress = await score.deployTeacherUsingCreate2();
+  console.log("Teacher contract deployed at:", teacherAddress.to);
 
-    console.log("\nTransfering Score ownership to Teacher...");
-    await score.transferOwnership(teacher.address);
-    console.log("Owner of Score changed to: ", await score.owner());
+  // Get the Teacher contract address
+  console.log("Owner of Score contract:", await score.owner());
 }
 
 main()
-    .then(() => process.exit(0))
-    .catch((error) => {
-        console.error(error);
-        process.exit(1);
-    })
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
