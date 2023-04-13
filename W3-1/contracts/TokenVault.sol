@@ -60,9 +60,9 @@ contract TokenVault is Recipient {
         return address(_token);
     }
 
-    function tokensReceived(uint256 amount) external override returns(bool) {
+    function tokensReceived(address sender, uint256 amount) external override returns(bool) {
         require(msg.sender == address(_token), "Invalid address");
-        _balances[msg.sender] += amount;
+        _balances[sender] += amount;
         return true;
     }
 }

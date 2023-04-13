@@ -16,6 +16,6 @@ contract MyToken is ERC20 {
      */
     function transferWithCallback(address recipient, uint256 amount) external {
         transfer(recipient, amount);
-        require(Recipient(recipient).tokensReceived(amount), "Callback function failed");
+        require(Recipient(recipient).tokensReceived(msg.sender, amount), "Callback function failed");
     }
 }
