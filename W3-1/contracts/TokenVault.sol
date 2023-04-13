@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: MIT
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./Recipient.sol";
 
 pragma solidity ^0.8.9;
 
-contract TokenVault {
+contract TokenVault is Recipient {
     mapping(address => uint256) private _balances;
     IERC20 private _token;
 
@@ -57,5 +58,11 @@ contract TokenVault {
 
     function token() external view returns(address) {
         return address(_token);
+    }
+
+    function tokensReceived(uint256 amount) external override returns(bool) {
+        require(msg.sender == address(_token), "Invalid address");
+        _balances[msg.sender] += amount;
+        return true;
     }
 }
