@@ -4,11 +4,11 @@
 
 ## 目录
 
-1. W1-1: 计数合约 Counter
+1. [W1-1: 计数合约 Counter](./W1-1/)
     - 实现目标：在测试链上调用 Counter 合约的 add 函数，完成一次转账。
     - 专业知识：Solidity 函数声明。
     - 工具：Metamask, Remix, Goerli.
-2. W1-2: Hardhat 计数合约
+2. [W1-2: Hardhat 计数合约](/W1-2/)
     - 实现目标：使用 Hardhat 测试、部署并验证 Counter 合约。
     - 专业知识：
         - Solidity 修饰器，
@@ -16,7 +16,7 @@
         - Hardhat run scripts 命令，
         - Hardhat verify 命令。
     - 工具：Goerli Etherscan.
-3. W2-1: 金库合约 Bank
+3. [W2-1: 金库合约 Bank](/W2-1/)
     - 实现目标：存储用户转入的 ETH, 记录转账用户和转账金额，允许合约所有者取出资金。
     - 专业知识：
         - Solidity:
@@ -31,7 +31,7 @@
         - JavaScript
             - Bank.deploy() 部署合约
             - bank.deployed() 确认合约
-4. W2-2: 分数接口 IScore
+4. [W2-2: 分数接口 IScore](/W2-2/)
     - 实现目标：让 Teacher 合约通过 IScore 接口访问并修改 Score 中的成绩。
     - 专业知识：
         - Solidity:
@@ -39,7 +39,7 @@
             - error() 错误处理
             - Interface 接口声明
             - modifier 修饰器
-5. W3-1: ERC20 & ERC721 & NFTMarket
+5. [W3-1: ERC20 & ERC721 & NFTMarket](/W3-1/)
     - 实现目标：
         1. 发行 MyERC20 代币，允许 Bank 合约通过 ERC20 接口存储并提取该代币。
         2. 发布 MyERC721 合约，并通过该合约和自定义 URI 铸造 NFT。
