@@ -1,0 +1,15 @@
+{
+    "title": "白鹿",
+    "description": "一张我很喜欢的头像",
+    "image": "ipfs://QmReVde9YWmZj142wS55fk57YMar2iSsRUj3dU9aDwwYZo",
+    "attributes": [
+        {
+            "trait_type": "颜色",
+            "value": "白色"
+        },
+        {
+            "trait_type": "种类",
+            "value": "鹿"
+        }
+    ]
+}

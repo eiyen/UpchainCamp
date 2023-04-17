@@ -13,13 +13,13 @@ contract MyTokenWithCallback is ERC20, Ownable, ERC20Permit {
     }
 
     // 在不调用Vault合约中deposit函数的情况下，向Vault合约进行转账，同时能让合约记录转账
-    function transferWithCallback(address recipient, uint256 amount) external returns (bool) {
-        require(balanceOf(msg.sender) >= amount, "Insufficient balance");
-        require(recipient != address(0), "Invalid recipient address");
+    // function transferWithCallback(address recipient, uint256 amount) external returns (bool) {
+    //     require(balanceOf(msg.sender) >= amount, "Insufficient balance");
+    //     require(recipient != address(0), "Invalid recipient address");
 
-        _transfer(_msgSender(), recipient, amount);
+    //     _transfer(_msgSender(), recipient, amount);
 
-        ICallbackReceiver(msg.sender).onTokenTransfer(msg.sender, recipient, amount);
-        return true;
-    }
+    //     ICallbackReceiver(msg.sender).onTokenTransfer(msg.sender, recipient, amount);
+    //     return true;
+    // }
 }

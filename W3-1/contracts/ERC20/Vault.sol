@@ -5,7 +5,7 @@ import "./Recipient.sol";
 
 pragma solidity ^0.8.9;
 
-contract TokenVault is Recipient {
+contract Vault is Recipient {
     mapping(address => uint256) private _balances;
     IERC20 private _token;
 
@@ -47,6 +47,7 @@ contract TokenVault is Recipient {
     }
 
     function withdraw(uint256 amount) external {
+        require(amount > 0, "Invalid amount");
         require(_balances[msg.sender] >= amount, "Insufficient balance");
         _balances[msg.sender] -= amount;
         require(_token.transfer(msg.sender, amount), "Failed transaction");
